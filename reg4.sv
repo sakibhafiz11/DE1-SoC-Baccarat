@@ -8,7 +8,7 @@ module reg4 (
 	);
 	
 	//Block: Helps to decide if we can load things or not/
-	always_ff @(posedge slow_clock) begin// waits for a rising edge
+	always_ff @(posedge slow_clock or negedge resetb) begin// waits for a rising edge
 		if(!resetb)
 			out <= 0;
 			

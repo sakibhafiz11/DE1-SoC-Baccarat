@@ -33,8 +33,9 @@ module statemachine (
 		
 	
 	// Block 1: State Register - stores the current state, on every clk edge the current state updates
-	
-	always_ff @(posedge slow_clock) begin
+	//always_ff @(posedge slow_clock) begin - was a problem would not reset properly, would only reset after holding down KEY3 and than creating an edge with key0 since key3 only reset on the next edge since its sequential.
+	// Better (asynchronous reset):
+	always_ff @(posedge slow_clock or negedge resetb) begin // negedge = negative edge = falling edge, when a signal goes from high to low(falling edge).
 
 		if(!resetb)
 			current_state <= DEAL_PCARD1;
